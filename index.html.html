@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Points De Vente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #8B0000;
+            --text-color: #333;
+            --background-color: #f8f9fa;
+            --card-color: #ffffff;
+            --fitland-color: #2E8B57;
+            --refresh-color: #8B0000;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4d4e50 0%, #e9ecef 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .brand-logo {
+            width: 200px;
+            height: 120px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        .brand-logo img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color:rgb(0, 0, 0);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #000000;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #4d4949;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--card-color);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(88, 86, 86, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .gyms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .gym-card {
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            color: white;
+        }
+
+        .gym-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        /* Carte FitLand en vert */
+        .gym-card[data-name="FitLand"] {
+            background: linear-gradient(135deg, var(--fitland-color), #000200);
+            border-color: #25b360;
+        }
+
+        .gym-card[data-name="FitLand"]:hover {
+            border-color: #1da053;
+            box-shadow: 0 15px 35px rgba(31, 194, 101, 0.4);
+        }
+
+        .gym-card[data-name="FitLand"] .gym-logo {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .gym-card[data-name="FitLand"] .gym-name,
+        .gym-card[data-name="FitLand"] .gym-location {
+            color: white;
+        }
+
+        .gym-card[data-name="FitLand"] .map-link {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .gym-card[data-name="FitLand"] .map-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: #e8f5e8;
+        }
+
+        /* Carte Refresh en rouge foncé */
+        .gym-card[data-name="Refresh Fitness Center"] {
+            background: linear-gradient(135deg, var(--refresh-color), #080303);
+            border-color: #5a0000;
+        }
+
+        .gym-card[data-name="Refresh Fitness Center"]:hover {
+            border-color: #5a0000;
+            box-shadow: 0 15px 35px rgba(105, 17, 17, 0.4);
+        }
+
+        .gym-card[data-name="Refresh Fitness Center"] .gym-logo {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .gym-card[data-name="Refresh Fitness Center"] .gym-name,
+        .gym-card[data-name="Refresh Fitness Center"] .gym-location {
+            color: white;
+        }
+
+        .gym-card[data-name="Refresh Fitness Center"] .map-link {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .gym-card[data-name="Refresh Fitness Center"] .map-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffe8e8;
+        }
+
+        .gym-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .gym-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gym-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .gym-location {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .gyms-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .gym-card {
+                padding: 20px;
+            }
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <div class="header">
+            <div class="brand-logo">
+                <!-- Placez votre logo de marque ici - sans arrière-plan -->
+                <img src="gym_fitness__Poster___1_-removebg-preview.png.png" alt="REALITY GOOD BOW">
+            </div>
+            <h1>Nos Salles De Sport Partenaires</h1>
+            <p class="subtitle">Découvrez les points de vente de nos produits dans les meilleures salles de sport</p>
+            
+            <!-- Barre de recherche -->
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Rechercher une salle de sport...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+
+        <!-- Grille des salles de sport -->
+        <div class="gyms-grid" id="gymsGrid">
+            <!-- Salle 1 - FitLand -->
+            <div class="gym-card" data-name="FitLand" data-location="Riyad">
+                <div class="gym-logo">
+                    <!-- Placez le logo FitLand ici - remplira complètement le carré -->
+                    <img src="شعار_fitland.png.png" alt="FitLand" onerror="this.style.display='none'; this.parentNode.innerHTML='FitLand';">
+                </div>
+                <div class="gym-name">FitLand</div>
+                <div class="gym-location">Moknine</div>
+                <a href="https://www.google.com/maps/place/FITLAND/@35.6341404,10.8958641,17z/data=!3m1!4b1!4m6!3m5!1s0x130217869bf620af:0x3a8255035cd17af0!8m2!3d35.6341361!4d10.898439!16s%2Fg%2F11fll5trf4?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D" class="map-link" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Voir sur la carte
+                </a>
+            </div>
+
+            <!-- Salle 2 - Refresh Fitness Center -->
+            <div class="gym-card" data-name="Refresh Fitness Center" data-location="Sfax">
+                <div class="gym-logo">
+                    <!-- Placez le logo Refresh ici - remplira complètement le carré -->
+                    <img src="شعار_refresh.png.png" alt="Refresh Fitness Center" onerror="this.style.display='none'; this.parentNode.innerHTML='Refresh';">
+                </div>
+                <div class="gym-name">Refresh Fitness Center</div>
+                <div class="gym-location">Ksibet Mediouni</div>
+                <a href="https://www.google.com/maps/place/Refresh+Fitness+Center+Ksibet+Mediouni/@35.6821233,10.8416888,17z/data=!3m1!4b1!4m6!3m5!1s0x1302117f72a35c07:0x76a90199f24c4e4a!8m2!3d35.682119!4d10.8465597!16s%2Fg%2F11gh35kg24?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D" class="map-link" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Voir sur la carte
+                </a>
+            </div>
+
+            <!-- Message aucun résultat -->
+            <div class="no-results" id="noResults">
+                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                <h3>Aucun résultat trouvé</h3>
+                <p>Aucune salle ne correspond à votre recherche</p>
+            </div>
+        </div>
+
+        <!-- Pied de page -->
+        <div class="footer">
+            <p>Suivez-nous sur les réseaux sociaux</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+216 28 347 707</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>Sa7abox@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <span>@Sa7abox</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction de recherche
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const gymCards = document.querySelectorAll('.gym-card');
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+
+            gymCards.forEach(card => {
+                const gymName = card.getAttribute('data-name').toLowerCase();
+                const gymLocation = card.getAttribute('data-location').toLowerCase();
+                
+                if (gymName.includes(searchTerm) || gymLocation.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Afficher message aucun résultat
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+
+        // Effet au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.gym-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in');
+            });
+        });
+    </script>
+</body>
+</html>
